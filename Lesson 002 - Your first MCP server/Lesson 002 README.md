@@ -4,6 +4,8 @@
 
 **Outcome:** Create an MCP server in Python that will say "Hello World".
 
+**Video:** [Create your first MCP server! (002 - Learn MCP servers for data & analytics)](https://www.youtube.com/watch?v=Iy1-_hoU8IY)
+
 
 ### Steps
 

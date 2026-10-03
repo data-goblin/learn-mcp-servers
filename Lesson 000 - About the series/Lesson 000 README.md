@@ -4,6 +4,8 @@
 
 **Outcome:** Install the necessary software and libraries and clone the repo on your local computer.
 
+**Video:** [Learn MCP servers for data and analytics! (000 - About the series)](https://www.youtube.com/watch?v=KQFmZiDXk-I)
+
 
 ### Steps
 

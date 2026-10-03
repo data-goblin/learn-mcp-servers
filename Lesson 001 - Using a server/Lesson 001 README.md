@@ -4,6 +4,8 @@
 
 **Outcome:** Search the Microsoft Docs and run the local server from [Lesson 002](<../Lesson 002 - Your first MCP server>), which just simply returns a variation test text of `hello world`.
 
+**Video:** [How to use MCP servers with VS Code & Claude Desktop (001 - Learn MCP servers for data & analytics)](https://www.youtube.com/watch?v=ovZX1JdnjXY)
+
 ### Steps
 
 1. Create the config files. There are several examples:

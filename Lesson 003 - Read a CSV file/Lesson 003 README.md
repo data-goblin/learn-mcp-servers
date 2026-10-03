@@ -4,6 +4,8 @@
 
 **Outcome:** Build a server with a `read_csv` tool that can load CSV files, show their contents, and provide basic information about the data. Add an `aggregate_csv` tool for basic analysis.
 
+**Video:** [Create an MCP server to analyze CSV files (003 - Learn MCP servers for data & analytics)](https://www.youtube.com/watch?v=HVFtf3FpFaY)
+
 
 ### Steps
 

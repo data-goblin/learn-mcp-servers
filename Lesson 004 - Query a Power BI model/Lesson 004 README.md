@@ -4,6 +4,8 @@
 
 **Outcome:** Build a server with 4 tools that can discover Power BI workspaces, list datasets, get model definitions, and execute DAX queries.
 
+**Video:** [How to create a Power BI MCP server to chat with data (004 - Learn MCP servers for data & analytics)](https://www.youtube.com/watch?v=bZYzZZF1AEc)
+
 ### Steps
 
 1. Follow along in the video and create a basic server that can list the Power BI workspaces.

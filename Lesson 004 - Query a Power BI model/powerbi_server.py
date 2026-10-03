@@ -11,6 +11,7 @@ Example prompts to test this server:
 
 #region Imports
 import json
+import re
 import requests
 import os
 import time
@@ -83,6 +84,32 @@ def wait_for_operation(location_url, retry_seconds=30):
             # Keep waiting if still running
         else:
             return {"error": f"Failed to check status: {response.status_code}"}
+
+
+SKIP_PATHS = (
+    "definition/cultures/",
+    "definition/roles/",
+    "definition/perspectives/",
+    "definition/expressions.tmdl",
+    "definition/dataSources.tmdl",
+)
+SKIP_PROPERTIES = {"lineageTag", "extendedProperty", "sourceLineageTag", "annotation", "changedProperty", "sourceColumn", "partition"}
+
+
+def strip_tmdl(content):
+    kept = []
+    skip_indent = None
+    for line in content.splitlines():
+        stripped = line.lstrip()
+        indent = len(line) - len(stripped)
+        if skip_indent is not None and (not stripped or indent > skip_indent):
+            continue
+        skip_indent = None
+        if re.split(r"[\s:=]", stripped, maxsplit=1)[0] in SKIP_PROPERTIES:
+            skip_indent = indent
+            continue
+        kept.append(line)
+    return "\n".join(kept)
 #endregion
 
 
@@ -136,8 +163,9 @@ def list_datasets(workspace_id: str) -> str:
 @mcp.tool()
 def get_model_definition(workspace_id: str, dataset_id: str) -> str:
     """
-    Get the complete TMDL definition of a semantic model including tables, columns, measures, and relationships.
-    Returns full model structure in TMDL format which is necessary to do before evaluating DAX queries.
+    Get the TMDL definition of a semantic model including tables, columns, measures, and relationships.
+    Leaves out metadata that DAX queries do not need: lineage tags, annotations, extended properties, partitions, source columns, cultures, roles, perspectives, and data sources.
+    Returns the model structure in TMDL format which is necessary to do before evaluating DAX queries.
     Examples: 'show me the data model', 'what tables are in this dataset?', 'get all measures and their DAX'
     """
     # Call Fabric API
@@ -169,7 +197,7 @@ def get_model_definition(workspace_id: str, dataset_id: str) -> str:
         payload = part.get("payload", "")
         
         # Skip non-TMDL files
-        if not path.endswith('.tmdl'):
+        if not path.endswith('.tmdl') or path.startswith(SKIP_PATHS):
             continue
             
         try:
@@ -180,7 +208,7 @@ def get_model_definition(workspace_id: str, dataset_id: str) -> str:
             output += f"\n{'─'*40}\n"
             output += f"File: {path}\n"
             output += f"{'─'*40}\n"
-            output += content
+            output += strip_tmdl(content)
             output += "\n"
             
         except Exception as e:

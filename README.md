@@ -1,3 +1,10 @@
+---
+
+> [!NOTE]
+> This repo has been archived by the author. It's no longer receiving updates and remains public just for reference. Please continue to respect [LICENSE](LICENSE).
+
+---
+
 # Teach MCP - Learning to make MCP servers for data analysis tasks
 
 The purpose of the repo is to teach you how to make MCP servers.
